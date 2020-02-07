@@ -1,0 +1,19 @@
+body{
+    background-image: url(photo1.jpg);
+    background-size: cover;
+}
+
+.styling {
+    width:60%;
+    margin:auto;
+    padding:10px;
+    border: 2px solid cornflowerblue;
+    box-shadow: 0 2px 3px #ccc;
+    background-color: khaki;
+  }
+  .red {
+      color:red;
+  }
+  .green {
+      color:green;
+  }

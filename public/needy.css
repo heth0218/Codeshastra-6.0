@@ -1,0 +1,37 @@
+body{
+    background-image: url(photo1.jpg);
+    background-size: cover;
+}
+
+.inline{
+    display: inline-block;
+    margin: 40px;
+}
+
+.input1{
+    width: 40%;
+    padding: 15px;
+    font-size: 25px;
+}
+.input2{
+    transform: scale(1.8);
+}
+
+.heading{
+    text-decoration: underline;
+    font-size: 40px;
+    color: rgb(197, 209, 22);
+}
+.input3{
+    width: auto;
+    padding: 15px;
+    font-size: 20px;
+}
+
+
+
+
+#map{
+    height:400px;
+    width:100%
+}

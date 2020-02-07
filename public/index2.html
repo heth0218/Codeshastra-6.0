@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>email</title>
+</head>
+<body>
+<div>
+    To:<input type="text" id="to" />
+    From:<input type="text" id="from" />
+    Subject:<input type="text" id="subject" placeholder="Enter your Subject here" />
+    body:<input type="text" id="body" placeholder="enter your feelings here" />
+<button id="Heth" onclick="hello()">Send</button>
+    <script>
+    
+    const hello=async()=>{
+        const to=document.getElementById('to').value;
+    const from=document.getElementById('from').value;
+    const subject=document.getElementById('subject').value;
+    const body1=document.getElementById('body').value;
+    const data={
+        to:to,
+        from:from,
+        subject:subject,
+        body:body1
+    }
+console.log(data)
+        const option={
+             method:"POST",
+             headers:{
+                 'Content-Type':'application/json'
+             },
+             body:JSON.stringify(data)
+         };
+         const res=await fetch('/',option);
+         const data1=await res.json();
+         console.log(data1);
+    }
+    </script>
+</div>
+    
+    
+</body>
+</html>

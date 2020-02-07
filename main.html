@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="home.js"></script>
+    <link rel="stylesheet" href="main.css">
+  
+</head>
+<body>
+    <div class="App">
+        <div class="foo">
+          <span class="letter" data-letter="J">J</span>
+          <span class="letter" data-letter="O">O</span>
+          <span class="letter1" data-letter="Y">Y</span>
+          <span class="letter" data-letter="O">O</span>
+          <span class="letter1" data-letter="F">F</span>
+          <span class="letter" data-letter="G">G</span>
+          <span class="letter" data-letter="I">I</span>
+          <span class="letter" data-letter="V">V</span>
+          <span class="letter" data-letter="I">I</span>
+          <span class="letter" data-letter="N">N</span>
+          <span class="letter" data-letter="G">G</span>
+        </div>
+        <br></br><br></br><br></br><br></br><br></br><br></br>  
+               <button class="button3">Immediate Help</button>
+                <a href="needy.html"><button class="button1" >Needy Person</button></a>
+                <a href="donor"><button class="button2" >Donor Person</button></a>
+           
+        
+        
+      </div>
+     
+
+    <script>
+      function hello(){
+          if("geolocation" in navigator){
+          console.log("connected")
+          navigator.geolocation.getCurrentPosition(async position=>{
+       const lat=position.coords.latitude;
+       const latitude=lat
+       const lon=position.coords.longitude;
+       const longitude=lon
+       document.getElementById("latitude").innerText=position.coords.latitude;
+       document.getElementById("longitude").innerText=position.coords.longitude;
+       const text=document.getElementById('textbox').value
+      console.log(text)
+      
+      const nine=[{
+        name:'a',
+        area:'tourist_attraction'
+      },
+    {
+      name:'b',
+      area:'restaurant'
+    },{
+      name:'c',
+      area:'stadium'
+    },{
+      name:'d',
+      area:'ngos and non profit organizations'
+    },
+    {
+      name:'e',
+      area:'hospital'
+    }]
+    nine.forEach(element=>{
+      if(element.name==text){
+       var target=element.area;
+       window.target1=target
+      }
+    })
+    console.log(target1)
+          const resi=await fetch(`/weather/${lat},${lon}/${target1}`)
+          const json=await resi.json();
+          console.log(json)
+
+        const temp=document.createElement('div')
+        temp.textContent=`Temperature:${json.weather.currently.temperature}`
+
+        const pressure=document.createElement('div')
+        pressure.textContent=`Pressure:${json.weather.currently.pressure}`
+        
+        const air=document.createElement('div')
+        air.textContent=`Air Value:${json.air.results}`
+        
+        const mood=document.createElement('div')
+        mood.textContent=`Summary of tday:${json.weather.hourly.summary}`
+        
+        const place=json.places.results
+        const arr=[]
+        place.forEach(element => {
+          arr.push({geo:element.geometry.location,
+          name:element.name,
+        placeid:element.place_id})
+        });
+        console.log(arr)
+        window.arr2=arr;
+      
+        document.body.append(pressure,temp,air,mood)
+      
+
+        
+        var options={
+           zoom:10,
+           center:{
+             lat:latitude,
+           lng:longitude
+           }
+       }
+       var map=new google.maps.Map(document.getElementById('map'),options)
+       var marker=new google.maps.Marker({
+           position:{
+            lat:latitude,
+           lng:longitude
+           },
+           map:map
+       })
+       
+       arr.forEach(el=>{
+
+        var marker=new google.maps.Marker({
+           position:{
+            lat:el.geo.lat,
+           lng:el.geo.lng
+           },
+           map:map,
+           icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+       })
+       var infoWindow=new google.maps.InfoWindow({
+         content:`<h1>${el.name}</h1>`
+       });
+       marker.addListener('click',function(){
+         infoWindow.open(map,marker)
+       
+       })
+      
+       const hospital=document.createElement('div')
+        hospital.textContent=`${el.name}`;
+       document.body.append(hospital);
+       
+       })
+
+       
+      
+
+      }
+
+       )
+      }
+      else{
+          console.log("not connected")
+      }
+    }
+
+    const hi=async()=>{
+      data=arr2;
+       const option={
+           method:"POST",
+           headers:{
+               'Content-Type':'application/json'
+           },
+           body:JSON.stringify(data)
+       };
+       const res=await fetch('/api',option);
+       const data1=await res.json();
+       console.log(data1);
+       const data2=data1.data;
+
+
+       data2.forEach(element=>{
+        const hospital=document.createElement('div')
+        hospital.textContent=`${element.name}`;
+        const contact=document.createElement('div')
+        hospital.textContent=`${element.formatted_phone_number}`;
+        document.body.append(hospital,contact);
+       })
+    }
+     
+      
+      </script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPQJH3qfhIJNCl6YhkB1sk3hR7Ef5yDT8"
+      async defer></script>
+      Enter ur preference:<input id="textbox" type='text'>
+      <h1>Google Details</h1>
+    <p1>latitude <span id="latitude"></span>&deg;
+        longitude <span id="longitude"></span>&deg;</p1>
+      
+        <button onclick="hello()">Geolocate</button>
+        <button onclick="hi()">Find</button>
+        <h1>My Google Map</h1>
+    <div id="map"></div>
+    
+</body>
+</html>
