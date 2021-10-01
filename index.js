@@ -25,8 +25,6 @@ app.post('/api',async (req,res)=>{
         res.json(nishit)
         console.log(nishit);
     });
-    
-    
    
 
 })
